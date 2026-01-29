@@ -3,7 +3,7 @@ const authcheck = require("../middleware/authcheck");
 const router = express.Router();
 
 // GET /products - Get all products
-//resolved issue 10 by adding authcheck to ensure only users that are logged in can see products.
+//Resolved issue 10 by adding authcheck to ensure only users that are logged in can see products.
 router.get("/products", authcheck, async (req, res) => {
     const pool = req.app.get('db'); // Access the global pool
     try {
