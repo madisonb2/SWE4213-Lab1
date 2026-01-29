@@ -20,8 +20,9 @@ router.get("/products/mylistings", authcheck, async (req, res) => {
     const pool = req.app.get('db');
     try {
         const userEmail = req.user.email;
+        //Resolved issue 8 by fixing SQL call to select only products with the user's email.
         const result = await pool.query(
-            "SELECT * FROM products ORDER BY id DESC",
+            "SELECT * FROM products WHERE owner_email = $1 ORDER BY id DESC",
             [userEmail]
         );
         res.json(result.rows);
