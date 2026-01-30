@@ -1,4 +1,19 @@
 import React from 'react';
+import IconButton from '@mui/material/IconButton';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+
+//Resolved issue 6 by adding a button to copy email to user's clipboard.
+const copyEmail = async (email) => {
+    try {
+        await navigator.clipboard.writeText(email);
+        alert("copied email")
+    }
+    catch (err) {
+        alert("failed to copy email")
+    }
+
+    
+}
 
 const ContactModal = ({ isOpen, onClose, email, title }) => {
     if (!isOpen) return null;
@@ -28,6 +43,9 @@ const ContactModal = ({ isOpen, onClose, email, title }) => {
                         <p className="text-xs text-slate-500 uppercase font-bold tracking-widest mb-1">Seller Email</p>
                         <p className="text-lg text-blue-400 font-mono select-all">{email}</p>
                     </div>
+                    <IconButton onClick = {() => copyEmail(email)}>
+                        <ContentCopyIcon style = {{color : 'white'}} />
+                    </IconButton>
                 </div>
             </div>
         </div>
