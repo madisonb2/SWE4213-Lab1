@@ -1,10 +1,11 @@
 // src/App.jsx
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import AuthContainer from './components/AuthContainer'
 import ContactModal from './components/ContactModal'
 import Listings from './components/Listings' // 1. Import the new component
+import { jwtDecode } from 'jwt-decode';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,6 +17,23 @@ function App() {
     setIsLoggedIn(false);
     setMyListings(false);
   }
+
+  //Resolved issue 7 by ensuring valid tokens don't have to re-login.
+  function checkTokenExpiry(token) {
+    const decoded = jwtDecode(token);
+    return decoded.exp < Date.now() / 1000;
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token && !checkTokenExpiry(token)) {
+      setIsLoggedIn(true);
+    }
+    else {
+      setIsLoggedIn(false);
+    }
+  }) 
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-950">
