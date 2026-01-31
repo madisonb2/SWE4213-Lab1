@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ItemCard from './ItemCard';
 import CreateListingModal from './CreateListingModal'; // Import your component
 
-const Listings = ({ onSelectItem, myListings }) => {
+const Listings = ({ onSelectItem, myListings, search }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -36,6 +36,11 @@ const Listings = ({ onSelectItem, myListings }) => {
         }
     };
 
+    //Resolved issue 4 by filtering products based on what is typed in the search bar.
+    const searchItems = products.filter(product =>
+        product.title.toLowerCase().includes(search.toLowerCase())
+    )
+
     useEffect(() => {
         fetchProducts();
     }, [myListings]);
@@ -52,7 +57,7 @@ const Listings = ({ onSelectItem, myListings }) => {
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
 
-                {products.map((product) => (
+                {searchItems.map((product) => (
                     <ItemCard
                         key={product.id}
                         image={product.image_url || `https://picsum.photos/seed/${product.id}/400/400`}

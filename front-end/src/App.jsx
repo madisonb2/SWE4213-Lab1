@@ -11,6 +11,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [myListings, setMyListings] = useState(false);
+  const [search, setSearch] = useState("");
 
   function onLogout() {
     localStorage.removeItem('token');
@@ -43,10 +44,10 @@ function App() {
         </div>
       ) : (
         <>
-          <Header setMyListings={setMyListings} onLogout={onLogout} />
+          <Header setMyListings={setMyListings} onLogout={onLogout} search = {search} setSearch = {setSearch} />
 
           <main className="flex-grow px-[50px] py-10">
-            <Listings onSelectItem={(item) => setSelectedItem(item)} myListings={myListings} />
+            <Listings onSelectItem={(item) => setSelectedItem(item)} myListings={myListings} search = {search}/>
           </main>
 
           <Footer />
