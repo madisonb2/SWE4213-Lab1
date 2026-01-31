@@ -37,11 +37,12 @@ router.post("/products", authcheck, async (req, res) => {
     const pool = req.app.get('db');
     const { title, price, image_url } = req.body;
     const owner_email = req.user.email;
+    const created_at = new Date();
 
     try {
         const result = await pool.query(
-            "INSERT INTO products (title, price, image_url, owner_email) VALUES ($1, $2, $3, $4) RETURNING *",
-            [title, price, image_url, owner_email]
+            "INSERT INTO products (title, price, image_url, owner_email, created_at) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+            [title, price, image_url, owner_email, created_at]
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {

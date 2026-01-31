@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ItemCard from './ItemCard';
 import CreateListingModal from './CreateListingModal'; // Import your component
+import { Select, MenuItem } from '@mui/material';
 
 const Listings = ({ onSelectItem, myListings, search }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [sortBy, setSortBy] = useState("");
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -36,6 +38,30 @@ const Listings = ({ onSelectItem, myListings, search }) => {
         }
     };
 
+    //Resolved issue 3 by adding a drop down to sort based on conditions
+    const sortListings = (sortCondition) => {
+        switch (sortCondition) {
+            case "priceAscending":
+                sortedProducts = products.sort((a, b) => a.price - b.price);
+                setProducts(sortedProducts);
+                break;
+            case "priceDescending":
+                sortedProducts = products.sort((a, b) => b.price - a.price);
+                setProducts(sortedProducts);
+                break;
+            case "dateAscending":
+                sortedProducts = products.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+                setProducts(sortedProducts);
+                break;
+            case "dateDescending":
+                sortedProducts = products.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                setProducts(sortedProducts);
+                break;
+            default:
+                break;
+        }
+    }
+
     //Resolved issue 4 by filtering products based on what is typed in the search bar.
     const searchItems = products.filter(product =>
         product.title.toLowerCase().includes(search.toLowerCase())
@@ -49,10 +75,53 @@ const Listings = ({ onSelectItem, myListings, search }) => {
 
     return (
         <>
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex-1 flex justify-between items-center mb-8">
                 <h1 className="text-2xl font-bold text-white">
                     {myListings ? "My Listings" : "Browse Listings"}
                 </h1>
+            </div>
+
+            <div className = "flex-1 flex justify-end" >
+                <Select 
+                    value = {sortBy}
+                    displayEmpty
+                    className = "w-50 bg-slate-800"
+                    sx = {{color: 'white', '& .MuiSelect-icon': {color: 'white' }}}
+                >
+                    <MenuItem value = "" disabled>Sort By...</MenuItem>
+                    <MenuItem 
+                        value = {'priceAscending'}
+                        onClick = {() => {
+                            setSortBy('priceAscending');
+                            sortListings('priceAscending');
+                        }}> 
+                        Price (Ascending) 
+                    </MenuItem>
+                    <MenuItem 
+                        value = {'priceDescending'}
+                        onClick = {() => {
+                            setSortBy('priceDescending');
+                            sortListings('priceDescending');
+                        }}> 
+                        Price (Descending) 
+                    </MenuItem>
+                    <MenuItem 
+                        value = {'dateAscending'}
+                        onClick = {() => {
+                            setSortBy('dateAscending');
+                            sortListings('dateAscending');
+                        }}> 
+                        Date (Ascending) 
+                    </MenuItem>
+                    <MenuItem 
+                        value = {'dateDescending'}
+                        onClick = {() => {
+                        setSortBy('dateDescending');
+                        sortListings('dateDescending');
+                        }}> 
+                        Date (Descending) 
+                    </MenuItem>
+                </Select>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
