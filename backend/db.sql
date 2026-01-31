@@ -11,5 +11,6 @@ CREATE TABLE IF NOT EXISTS products (
     title VARCHAR(255) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     image_url TEXT,
-    owner_email VARCHAR(255) REFERENCES users(email) ON DELETE CASCADE
+    owner_email VARCHAR(255) REFERENCES users(email) ON DELETE CASCADE,
+    created_at TIMESTAMP
 );

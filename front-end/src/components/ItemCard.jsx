@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ItemCard = ({ image, title, price, onView }) => {
+const ItemCard = ({ image, title, price, created_at, onView }) => {
     return (
         <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 cursor-pointer group flex flex-col h-full">
 
@@ -18,6 +18,10 @@ const ItemCard = ({ image, title, price, onView }) => {
                 <h3 className="text-white font-medium text-base truncate mb-1">
                     {title}
                 </h3>
+                {/*Resolved issue 5 by updating the database to include creation date and display creation data in item card.*/}
+                <h4 className="text-white font-medium text-base truncate mb-1">
+                    Created at {new Date(created_at).toLocaleDateString()}
+                </h4>
 
                 <div className="flex items-center justify-between mt-auto pt-1">
                     <span className="text-lg font-bold text-white">

@@ -39,10 +39,11 @@ const seed = async () => {
             const title = items[i] || `Marketplace Item #${i + 1}`;
             const price = Math.floor(Math.random() * 200) + 10; // Random price between 10 and 210
             const image_url = `https://picsum.photos/seed/unb${i + 1}/400/400`;
+            const created_at = new Date()
 
             await pool.query(
-                'INSERT INTO products (title, price, image_url, owner_email) VALUES ($1, $2, $3, $4)',
-                [title, price, image_url, testEmail]
+                'INSERT INTO products (title, price, image_url, owner_email, created_at) VALUES ($1, $2, $3, $4, $5)',
+                [title, price, image_url, testEmail, created_at]
             );
         }
 

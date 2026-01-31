@@ -58,6 +58,7 @@ const Listings = ({ onSelectItem, myListings }) => {
                         image={product.image_url || `https://picsum.photos/seed/${product.id}/400/400`}
                         title={product.title}
                         price={product.price}
+                        created_at = {product.created_at}
                         onView={() => onSelectItem(product)}
                     />
                 ))}
