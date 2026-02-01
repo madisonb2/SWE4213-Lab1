@@ -1,3 +1,4 @@
+//AI Use Statement: AI was used to determine how to disable the button based on empty values.
 import React, { useState } from 'react';
 
 const Signup = ({ onBackToLogin }) => {
@@ -36,6 +37,9 @@ const Signup = ({ onBackToLogin }) => {
             setError('Could not connect to the server');
         }
     };
+
+    //Disable login while values are empty
+    const disableButton = !name || !email || !password;
 
     return (
         <div className="bg-slate-900 p-8 rounded-xl border border-slate-800 w-full max-w-sm shadow-2xl">
@@ -77,7 +81,8 @@ const Signup = ({ onBackToLogin }) => {
 
                 <button
                     type="submit"
-                    className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 rounded-lg transition-colors"
+                    className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 rounded-lg transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed"
+                    disabled={disableButton}
                 >
                     Create Account
                 </button>

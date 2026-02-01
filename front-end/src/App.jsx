@@ -1,3 +1,4 @@
+//AI Use Statement: Chat GPT was used to help figure out how to check if a token was expired.
 // src/App.jsx
 import { useState, useEffect } from 'react'
 import Footer from './components/Footer'

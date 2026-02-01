@@ -1,3 +1,4 @@
+//AI Use Statement: Chat GPT was used to determine how to properly format the date.
 import React from 'react';
 
 const ItemCard = ({ image, title, price, created_at, onView, myListings, deleteItem }) => {

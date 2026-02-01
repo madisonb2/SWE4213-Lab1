@@ -17,6 +17,19 @@ router.post("/auth/register", async (req, res) => {
         });
     }
 
+    //Resolved issue 1 by adding checks to ensure password is valid.
+    if (password.length < 8) {
+        return res.status(403).json({
+            message: "Password must be at least 8 characters."
+        })
+    }
+
+    if (!/\d/.test(password) || !/[^a-zA-Z0-9]/.test(password) ) {
+        return res.status(403).json({
+            message: "Password must contain at least 1 special character and 1 number."
+        })
+    }
+
     try {
         // 1. Check if user already exists
         const userExists = await pool.query("SELECT * FROM users WHERE email = $1", [email]);

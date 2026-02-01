@@ -1,4 +1,11 @@
 # SWE4213 - Lab 1 
+
+Name: Madison Brown
+
+Student Number: 3697762
+
+AI Statement: I used ChatGPT to help resolve small bugs that were caused by any updates I made to the code i.e. figuring out the error that I used the wrong date format in the backend when submitting created_at to the database. When using AI for non-bug related questions, an AI Use Statement can be found at the top of the file, as dictated by the syllabus.
+
 This README shows you how to get the project up and running. 
 
 Hint: It is possible that something is missing in this documentation which will throw an error when you try to follow these instructions.

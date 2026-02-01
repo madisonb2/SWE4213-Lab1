@@ -1,3 +1,6 @@
+//AI Use Statement: Chat GPT was used to determine the logic flow for passing the search term from header to listings component.
+//Chat GPT was also used to determine how to format the look and logic flow for the select component.
+//It was also used to help figure out the sort function.
 import React, { useState, useEffect } from 'react';
 import ItemCard from './ItemCard';
 import CreateListingModal from './CreateListingModal'; // Import your component
