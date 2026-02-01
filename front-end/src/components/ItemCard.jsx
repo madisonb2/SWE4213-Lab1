@@ -1,11 +1,16 @@
 import React from 'react';
 
-const ItemCard = ({ image, title, price, created_at, onView }) => {
+const ItemCard = ({ image, title, price, created_at, onView, myListings, deleteItem }) => {
     return (
         <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 cursor-pointer group flex flex-col h-full">
-
+            {myListings && <div className = "flex justify-end">
+                <button className = "text-slate-400 hover:text-white transition-colors" onClick = {deleteItem}>
+                    ✕
+                </button>
+            </div>}
             {/* --- Product Image Section --- */}
             <div className="relative aspect-square w-full bg-slate-800 overflow-hidden">
+                
                 <img
                     src={image || 'https://via.placeholder.com/400x400?text=No+Image'}
                     alt={title}

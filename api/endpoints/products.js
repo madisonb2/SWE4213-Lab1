@@ -51,4 +51,22 @@ router.post("/products", authcheck, async (req, res) => {
     }
 });
 
+// DELETE /products - Delete a product
+router.delete("/products/:id", authcheck, async (req, res) => {
+    const pool = req.app.get('db');
+    const id = Number(req.params.id);
+
+    try {
+        const result = await pool.query(
+            "DELETE FROM products WHERE id = $1", [id]
+        );
+        res.json({ message: "Product with ID ${id} deleted" })
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Database error deleting product" });
+    }
+
+});
+
 module.exports = router;

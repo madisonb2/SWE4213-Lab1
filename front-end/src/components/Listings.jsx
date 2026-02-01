@@ -60,12 +60,38 @@ const Listings = ({ onSelectItem, myListings, search }) => {
             default:
                 break;
         }
-    }
+    };
 
     //Resolved issue 4 by filtering products based on what is typed in the search bar.
     const searchItems = products.filter(product =>
         product.title.toLowerCase().includes(search.toLowerCase())
     )
+
+    //Resolved issue 2 by adding button in My Listings page that allows you to delete your listings.
+    const deleteItem = async (id) => {
+        setLoading(true);
+        try {
+            const token = localStorage.getItem('token');
+            const endpoint = `http://localhost:3000/products/${id}`;
+
+            const response = await fetch(endpoint, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) throw new Error('Failed to fetch products');
+
+            await fetchProducts();
+        }
+        catch (err) {
+
+        }
+        finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         fetchProducts();
@@ -134,6 +160,8 @@ const Listings = ({ onSelectItem, myListings, search }) => {
                         price={product.price}
                         created_at = {product.created_at}
                         onView={() => onSelectItem(product)}
+                        myListings = {myListings}
+                        deleteItem = {() => deleteItem(product.id)}
                     />
                 ))}
 
